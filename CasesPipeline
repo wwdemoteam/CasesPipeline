@@ -1,3 +1,8 @@
+case management pipeline 
+timer 
+
+you are what you don't automate
+
 pipeline {
   agent any
   parameters {
@@ -12,9 +17,9 @@ pipeline {
     ArtifactsFolder = "Artifacts"
     // LifeTime Specification
     LifeTimeAPIVersion = 2
-    LifeTimeEnvironmentURL = 'hkairport-lt.outsystemsenterprise.com'
+    LifeTimeEnvironmentURL = 'wwdt-lt.outsystemsenterprise.com'
     // Authentication Specific Variables
-    AuthorizationToken = credentials('LifeTime11ServiceAccountToken')
+    AuthorizationToken = credentials('LifeTimeWwdtToken')
     // Slack Specific Variables
     //SlackHook = credentials('slack-hook')
     // Environments Specification
@@ -22,11 +27,11 @@ pipeline {
     AcceptanceEnvironment = 'Testing'
     ProductionEnvironment = 'Production'
     // Regression URL Specification
-    ProbeEnvironmentURL = 'https://hkairport-tst.outsystemsenterprise.com'
-    BddEnvironmentURL = 'https://hkairport-tst.outsystemsenterprise.com'
+    ProbeEnvironmentURL = 'https://wwdt-tst.outsystemsenterprise.com'
+    BddEnvironmentURL = 'https://wwdt-tst.outsystemsenterprise.com'
   }
   stages {
-    stage('Install Python Dependencies') {
+    stage('Preparing Pipeline') {
       steps {
         echo "Create Artifacts Folder"
         sh "mkdir ${env.ArtifactsFolder}"
@@ -41,7 +46,7 @@ pipeline {
         }
       }
     }
-    stage('Get Latest Tags') {
+    stage('Staging to QA') {
       steps {
         withPythonEnv('python3') {
           echo "Pipeline run triggered remotely by '${params.TriggeredBy}' for the following applications (including tests): '${params.ApplicationScopeWithTests}'"
@@ -110,7 +115,7 @@ pipeline {
        }
      }
     
-    stage('Deploy Production') {
+    stage('Deploy to Production') {
       steps {
         withPythonEnv('python3') {
           echo 'Deploying latest application tags to Production...'
