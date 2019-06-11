@@ -1,8 +1,3 @@
-case management pipeline 
-timer 
-
-you are what you don't automate
-
 pipeline {
   agent any
   parameters {
