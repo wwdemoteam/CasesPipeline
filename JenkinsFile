@@ -14,7 +14,7 @@ pipeline {
     LifeTimeAPIVersion = 2
     LifeTimeEnvironmentURL = 'wwdt-lt.outsystemsenterprise.com'
     // Authentication Specific Variables
-    AuthorizationToken = credentials('LifeTimeWwdtToken')
+    AuthorizationToken = credentials('wwdttoken')
     // Slack Specific Variables
     //SlackHook = credentials('slack-hook')
     // Environments Specification
