@@ -33,6 +33,7 @@ pipeline {
         // Only the virtual environment needs to be installed at the system level
         echo "Install Python Virtual environments"
         sh 'pip3 install -q -I virtualenv'
+	echo easy_install--version
         // Install the rest of the dependencies
         withPythonEnv('python3') {
               
